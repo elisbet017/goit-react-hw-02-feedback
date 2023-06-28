@@ -13,13 +13,11 @@ export class App extends Component {
     bad: 0,
   };
 
-  onUpdateStatistics = e => {
-    const option = e.target.dataset.option;
-    this.setState(prevValue => {
-      return {
+  onUpdateStatistics = option => {
+    this.setState(prevValue => ({
         [option]: prevValue[option] + 1,
-      };
-    });
+      })
+    );
   };
 
   countTotalFeedback = () => {
@@ -38,7 +36,8 @@ export class App extends Component {
       <>
         <Section title="Please leave your feedback">
           <FeedbackOptions
-            onLeaveFeedback={this.onUpdateStatistics}
+            onLeaveFeedback={(option) => this.onUpdateStatistics(option)}
+            options={Object.keys(this.state)}
           ></FeedbackOptions>
         </Section>
         <Section title="Statistics">

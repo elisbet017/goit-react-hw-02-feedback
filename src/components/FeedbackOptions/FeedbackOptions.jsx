@@ -1,16 +1,25 @@
 import PropTypes from 'prop-types';
 import { Button } from './FeedbackOptions.styled';
 
-export const FeedbackOptions = ({ onLeaveFeedback }) => {
+export const FeedbackOptions = ({ onLeaveFeedback, options }) => {
   return (
     <>
-      <Button type="button" onClick={onLeaveFeedback} data-option="good">
+      <Button
+        type="button"
+        onClick={() => onLeaveFeedback(options[0])}
+      >
         Good
       </Button>
-      <Button type="button" onClick={onLeaveFeedback} data-option="neutral">
+      <Button
+        type="button"
+        onClick={() => onLeaveFeedback(options[1])}
+      >
         Neutral
       </Button>
-      <Button type="button" onClick={onLeaveFeedback} data-option="bad">
+      <Button
+        type="button"
+        onClick={() => onLeaveFeedback(options[2])}
+      >
         Bad
       </Button>
     </>
@@ -19,4 +28,5 @@ export const FeedbackOptions = ({ onLeaveFeedback }) => {
 
 FeedbackOptions.propTypes = {
   onLeaveFeedback: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(PropTypes.string.isRequired,).isRequired,
 }
