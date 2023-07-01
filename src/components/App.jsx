@@ -1,10 +1,10 @@
 import React from 'react';
 import { GlobalStyles } from 'utils/GlobalStyles';
 import { Component } from 'react';
-import { Statistics } from './Statistics/Statistics';
-import { FeedbackOptions } from './FeedbackOptions/FeedbackOptions';
-import { Section } from './Section/Section';
-import { Notification } from './Notification/Notification';
+import Statistics from './Statistics';
+import FeedbackOptions from './FeedbackOptions';
+import Section from './Section';
+import Notification from './Notification';
 
 export class App extends Component {
   state = {
@@ -21,17 +21,21 @@ export class App extends Component {
   };
 
   countTotalFeedback = () => {
-    return this.state.good + this.state.neutral + this.state.bad;
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
   };
 
-  countPositiveFeedbackPercentage = () => Math.round(
-        (this.state.good /
-          (this.state.good + this.state.neutral + this.state.bad)) *
+  countPositiveFeedbackPercentage = () => {
+    const { good, neutral, bad } = this.state;
+    return Math.round(
+        (good /
+          (good + neutral + bad)) *
           100
-      );
+      )};
 
   render() {
-    const hasFeedback = this.state.good || this.state.neutral || this.state.bad;
+    const { good, neutral, bad } = this.state
+    const hasFeedback = good || neutral || bad;
     return (
       <>
         <Section title="Please leave your feedback">
@@ -43,9 +47,9 @@ export class App extends Component {
         <Section title="Statistics">
           {hasFeedback ? (
             <Statistics
-              good={this.state.good}
-              neutral={this.state.neutral}
-              bad={this.state.bad}
+              good={good}
+              neutral={neutral}
+              bad={bad}
               total={this.countTotalFeedback()}
               positivePercentage={`${this.countPositiveFeedbackPercentage()}%`}
             ></Statistics>
